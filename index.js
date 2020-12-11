@@ -1,7 +1,15 @@
+const DefaultSetup = {
+    shouldCallListener: (listener, event) => {
+        return listener.type === '*' || listener.type === event.type;
+    },
+    toHandlerPayload: (listener, event) => event,
+};
+
 class EventManager {
-    constructor(options) {
+    constructor(options = {}) {
         this.listeners = [];
-        this.matchEventType = options && options.matchEventType;
+        this.shouldCallListener = options.shouldCallListener || DefaultSetup.shouldCallListener;
+        this.toHandlerPayload = options.toHandlerPayload || DefaultSetup.toHandlerPayload;
     }
     addEventListener(type, handler) {
         if (Array.isArray(handler))
@@ -33,15 +41,12 @@ class EventManager {
         }
     }
     dispatchEvent(type, props) {
-        const event = Object.assign({}, props || {}, {type});
+        const event = {...props, type};
 
         for (let i = 0, n = this.listeners.length; i < n; i++) {
             let L = this.listeners[i];
-            let eventTypeMatches = this.matchEventType ?
-                this.matchEventType(type, L.type) :
-                (L.type === type || L.type === '*');
-
-            if (eventTypeMatches) L.handler(event);
+            if (this.shouldCallListener(L, event))
+                L.handler(this.toHandlerPayload(L, event));
         }
     }
 }

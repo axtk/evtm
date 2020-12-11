@@ -12,7 +12,13 @@ Returns an `EventManager` object instance.
 
 #### `EventManager(options?: object)`
 
-`options.matchEventType: function` specifies how a dispatched event type is matched against a subscription event type. By default, the event types are checked for strict equality.
+`options.shouldCallListener: (listener, event) => boolean` specifies whether the event `listener` should be invoked when the `event` is dispatched. By default:
+
+```js
+(listener, event) => listener.type === '*' || listener.type === event.type;
+```
+
+`options.toHandlerPayload: (listener, event) => any` specifies the payload that the handler function should receive. By default, it returns the `event` object.
 
 ### Methods
 
@@ -20,7 +26,7 @@ Returns an `EventManager` object instance.
 
 Subscribes a `handler` function (or an array of functions) to the specified event `type` and returns an event listener object (or an array thereof) with a `remove()` method that removes the subscription. If a handler is not a function, it is silently ignored.
 
-Handlers added to the wildcard `'*'` event type will be triggered whenever any event is dispatched (unless this is changed with a custom `matchEventType` option in the constructor).
+Handlers added to the wildcard `'*'` event type will be triggered whenever any event is dispatched (unless this is changed with a custom `shouldCallListener` option in the constructor).
 
 #### `removeEventListener(type: string, handler?: function | function[])`
 
