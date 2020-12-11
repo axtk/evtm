@@ -1,6 +1,7 @@
 class EventManager {
-    constructor() {
+    constructor(options) {
         this.listeners = [];
+        this.matchEventType = options && options.matchEventType;
     }
     addEventListener(type, handler) {
         if (Array.isArray(handler))
@@ -36,7 +37,11 @@ class EventManager {
 
         for (let i = 0, n = this.listeners.length; i < n; i++) {
             let L = this.listeners[i];
-            if (L.type === type || L.type === '*') L.handler(event);
+            let eventTypeMatches = this.matchEventType ?
+                this.matchEventType(type, L.type) :
+                (L.type === type || L.type === '*');
+
+            if (eventTypeMatches) L.handler(event);
         }
     }
 }
