@@ -10,15 +10,17 @@
 
 Returns an `EventManager` object instance.
 
-#### `EventManager(options?: object)`
+#### `EventManager(props?: object)`
 
-`options.shouldCallListener: (listener, event) => boolean` specifies whether the event `listener` should be invoked when the `event` is dispatched. By default:
+`props.shouldCallListener: (listener, event) => boolean`<br>
+specifies whether the event `listener` should be invoked when the `event` is dispatched. By default:
 
 ```js
 (listener, event) => listener.type === '*' || listener.type === event.type;
 ```
 
-`options.toHandlerPayload: (listener, event) => any` specifies the payload that the handler function should receive. By default, it returns the `event` object.
+`props.toHandlerPayload: (listener, event) => any`<br>
+specifies the payload that the handler function should receive. By default, it returns the `event` object.
 
 ### Methods
 

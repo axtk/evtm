@@ -1,4 +1,4 @@
-const DefaultSetup = {
+const DefaultProps = {
     shouldCallListener: (listener, event) => {
         return listener.type === '*' || listener.type === event.type;
     },
@@ -6,10 +6,9 @@ const DefaultSetup = {
 };
 
 class EventManager {
-    constructor(options = {}) {
+    constructor(props = {}) {
+        Object.assign(this, DefaultProps, props);
         this.listeners = [];
-        this.shouldCallListener = options.shouldCallListener || DefaultSetup.shouldCallListener;
-        this.toHandlerPayload = options.toHandlerPayload || DefaultSetup.toHandlerPayload;
     }
     addEventListener(type, handler) {
         if (Array.isArray(handler))
