@@ -1,0 +1,24 @@
+{
+  "name": "event-manager",
+  "version": "1.0.0",
+  "description": "Custom event manager",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx rollup -c"
+  },
+  "author": "axtk",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "@rollup/plugin-babel": "^5.2.2",
+    "rollup": "^2.34.2",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "keywords": [
+    "event",
+    "emitter",
+    "dispatcher",
+    "mediator"
+  ]
+}
