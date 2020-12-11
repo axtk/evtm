@@ -3,6 +3,12 @@ class EventManager {
         this.listeners = [];
     }
     addEventListener(type, handler) {
+        if (Array.isArray(handler))
+            return handler.map(h => this.addEventListener(type, h));
+
+        if (typeof handler !== 'function')
+            return;
+
         const id = Math.random().toString(36).slice(2);
         this.listeners.push({type, handler, id});
 
@@ -16,9 +22,12 @@ class EventManager {
         };
     }
     removeEventListener(type, handler) {
+        if (Array.isArray(handler))
+            return handler.map(h => this.removeEventListener(type, h));
+
         for (let i = this.listeners.length - 1; i >= 0; i--) {
             let L = this.listeners[i];
-            if (L.type === type && L.handler === handler)
+            if (L.type === type && (!handler || L.handler === handler))
                 this.listeners.splice(i, 1);
         }
     }
