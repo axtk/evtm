@@ -19,6 +19,8 @@ specifies whether the event `listener` should be invoked when the `event` is dis
 (listener, event) => listener.type === '*' || listener.type === event.type;
 ```
 
+This option can be useful, for instance, to apply event type pattern matching instead of strict equality check.
+
 `props.toHandlerPayload: (listener, event) => any`<br>
 specifies the payload that the handler function should receive. By default, it returns the `event` object.
 
