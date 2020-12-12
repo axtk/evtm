@@ -1,6 +1,6 @@
 # event-manager
 
-*Custom event manager*
+*A lightweight event manager*
 
 ## `class EventManager`
 
