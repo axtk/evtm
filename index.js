@@ -1,13 +1,13 @@
-const DefaultProps = {
-    shouldCallListener: (listener, event) => {
-        return listener.type === '*' || listener.type === event.type;
-    },
-    toHandlerPayload: (listener, event) => event,
-};
-
 class EventManager {
     constructor(props = {}) {
-        Object.assign(this, DefaultProps, props);
+        this.shouldCallListener = props.shouldCallListener ?
+            props.shouldCallListener.bind(this) :
+            ((listener, event) => listener.type === '*' || listener.type === event.type);
+
+        this.toHandlerPayload = props.toHandlerPayload ?
+            props.toHandlerPayload.bind(this) :
+            ((listener, event) => event);
+
         this.listeners = [];
     }
     addEventListener(type, handler) {
