@@ -48,3 +48,9 @@ Removes an event subscription with the specified event `type` and event `handler
 #### `dispatchEvent(type: any, props?: object)`
 
 Dispatches an event of the specified `type` with the specified properties.
+
+## Installation
+
+```
+npm i github:axtk/event-manager
+```
