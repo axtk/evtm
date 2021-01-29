@@ -1,8 +1,11 @@
 {
   "name": "event-manager",
   "version": "1.0.4",
-  "description": "Custom event manager",
+  "description": "Customizable event manager",
   "main": "index.js",
+  "scripts": {
+    "test": "node -r esm test.js"
+  },
   "author": "axtk",
   "license": "ISC",
   "keywords": [
@@ -10,5 +13,8 @@
     "emitter",
     "dispatcher",
     "mediator"
-  ]
+  ],
+  "devDependencies": {
+    "esm": "^3.2.25"
+  }
 }
