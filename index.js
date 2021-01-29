@@ -31,21 +31,19 @@ class EventManager {
     }
     removeEventListener(type, handler) {
         if (Array.isArray(handler))
-            return handler.map(h => this.removeEventListener(type, h));
+            return handler.forEach(h => this.removeEventListener(type, h));
 
         for (let i = this.listeners.length - 1; i >= 0; i--) {
-            let L = this.listeners[i];
-            if (L.type === type && (!handler || L.handler === handler))
+            if (this.listeners[i].type === type && (!handler || this.listeners[i].handler === handler))
                 this.listeners.splice(i, 1);
         }
     }
     dispatchEvent(type, props) {
         const event = {...props, type};
 
-        for (let i = 0, n = this.listeners.length; i < n; i++) {
-            let L = this.listeners[i];
-            if (this.shouldCallListener(L, event))
-                L.handler(this.toHandlerPayload(L, event));
+        for (let listener of this.listeners) {
+            if (this.shouldCallListener(listener, event))
+                listener.handler(this.toHandlerPayload(listener, event));
         }
     }
 }
