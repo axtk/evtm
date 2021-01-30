@@ -1,18 +1,10 @@
 class EventManager {
-    constructor(props = {}) {
-        this.shouldCallListener = props.shouldCallListener ?
-            props.shouldCallListener.bind(this) :
-            ((listener, event) => listener.type === '*' || listener.type === event.type);
-
-        this.toHandlerPayload = props.toHandlerPayload ?
-            props.toHandlerPayload.bind(this) :
-            ((listener, event) => event);
-
+    constructor() {
         this.listeners = [];
     }
-    addEventListener(type, handler) {
+    addListener(type, handler) {
         if (Array.isArray(handler))
-            return handler.map(h => this.addEventListener(type, h));
+            return handler.map(h => this.addListener(type, h));
 
         if (typeof handler !== 'function')
             return;
@@ -29,22 +21,28 @@ class EventManager {
             }
         };
     }
-    removeEventListener(type, handler) {
+    removeListener(type, handler) {
         if (Array.isArray(handler))
-            return handler.forEach(h => this.removeEventListener(type, h));
+            return handler.forEach(h => this.removeListener(type, h));
 
         for (let i = this.listeners.length - 1; i >= 0; i--) {
             if (this.listeners[i].type === type && (!handler || this.listeners[i].handler === handler))
                 this.listeners.splice(i, 1);
         }
     }
-    dispatchEvent(type, props) {
+    dispatch(type, props) {
         const event = {...props, type};
 
         for (let listener of this.listeners) {
             if (this.shouldCallListener(listener, event))
                 listener.handler(this.toHandlerPayload(listener, event));
         }
+    }
+    shouldCallListener(listener, event) {
+        return listener.type === '*' || listener.type === event.type;
+    }
+    toHandlerPayload(listener, event) {
+        return event;
     }
 }
 
