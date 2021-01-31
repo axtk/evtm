@@ -33,19 +33,19 @@ eventManager.dispatch('menu.open');
 #### `.addListener(type, handler)`
 
 - **`type: any`**
-- **`handler: function | function[]`**
-- Returns: **`listener: object | object[]`**.
+- **`handler: function`**
+- Returns: **`listener: object | undefined`**.
 
-Subscribes a `handler` function (or an array of functions) to the specified event `type` and returns an event listener object (or an array thereof) with a `remove()` method that removes the subscription. If a handler is not a function, it is silently ignored.
+Subscribes a `handler` function to the specified event `type` and returns an event listener object with a `remove()` method that removes the subscription. If a handler is not a function, it is silently ignored without returning a listener object.
 
 Handlers added to the wildcard `'*'` event type will be triggered whenever any event is dispatched. (This can be changed in a descendant class by overriding the `shouldCallListener` method.)
 
 #### `.removeListener(type, handler?)`
 
 - **`type: any`**
-- **`handler?: function | function[]`**
+- **`handler?: function`**
 
-Removes an event subscription with the specified event `type` and event `handler` (or an array of handlers). If the handler is not specified, all subscriptions of the specified event `type` are removed.
+Removes an event subscription with the specified event `type` and event `handler`. If the handler is not specified, all subscriptions of the specified event `type` are removed.
 
 #### `.dispatch(type, props?)`
 

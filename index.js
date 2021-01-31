@@ -3,9 +3,6 @@ class EventManager {
         this.listeners = [];
     }
     addListener(type, handler) {
-        if (Array.isArray(handler))
-            return handler.map(h => this.addListener(type, h));
-
         if (typeof handler !== 'function')
             return;
 
@@ -22,9 +19,6 @@ class EventManager {
         };
     }
     removeListener(type, handler) {
-        if (Array.isArray(handler))
-            return handler.forEach(h => this.removeListener(type, h));
-
         for (let i = this.listeners.length - 1; i >= 0; i--) {
             if (this.listeners[i].type === type && (!handler || this.listeners[i].handler === handler))
                 this.listeners.splice(i, 1);
