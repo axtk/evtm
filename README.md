@@ -2,21 +2,27 @@
 
 *A lightweight event manager*
 
-## Exports
-
-### `class EventManager`
+## Usage
 
 ```js
-const eventManager = new EventManager();
+let eventManager = new EventManager();
 
-eventManager.addListener('something happened', event => {
-    console.log(event.x);
+let listener = eventManager.addListener('something happened', event => {
+    // a handler for the specific event
+});
+let universalListener = eventManager.addListener('*', event => {
+    // a handler for all events dispatched to this eventManager
 });
 
 eventManager.dispatch('something happened', {x: 42});
+
+listener.remove();
+universalListener.remove();
 ```
 
-By default, `EventManager` instances check for equality of the listener type and the incoming event type. Here's an example of how event type pattern matching can be applied instead of the equality check:
+### Custom event type matching
+
+By default, instances of `EventManager` check for equality of the listener type and the incoming event type. Here's an example of how the event type matching can be customized:
 
 ```js
 class EventPatternManager extends EventManager {
@@ -24,35 +30,14 @@ class EventPatternManager extends EventManager {
         return listener.type.test(event.type);
     }
 }
-
-let eventManager = new EventPatternManager();
-eventManager.addListener(/^menu\./, event => console.log(event));
-eventManager.dispatch('menu.open');
 ```
 
-#### `.addListener(type, handler)`
+```js
+let eventManager = new EventPatternManager();
 
-- **`type: any`**
-- **`handler: function`**
-- Returns: **`listener: object | undefined`**.
-
-Subscribes a `handler` function to the specified event `type` and returns an event listener object with a `remove()` method that removes the subscription. If a handler is not a function, it is silently ignored without returning a listener object.
-
-Handlers added to the wildcard `'*'` event type will be triggered whenever any event is dispatched. (This can be changed in a descendant class by overriding the `shouldCallListener` method.)
-
-#### `.removeListener(type, handler?)`
-
-- **`type: any`**
-- **`handler?: function`**
-
-Removes an event subscription with the specified event `type` and event `handler`. If the handler is not specified, all subscriptions of the specified event `type` are removed.
-
-#### `.dispatch(type, props?)`
-
-- **`type: any`**
-- **`props?: object`**
-
-Dispatches an event of the specified `type` with the specified properties.
+eventManager.addListener(/^task\./, event => console.log(event));
+eventManager.dispatch('task.started');
+```
 
 ## Installation
 

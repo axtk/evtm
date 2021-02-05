@@ -34,11 +34,11 @@ class EventPatternManager extends EventManager {
 }
 
 eventManager = new EventPatternManager();
-eventManager.addListener(/^menu\./, event => {
+eventManager.addListener(/^task\./, event => {
     x += event.dx;
 });
-eventManager.dispatch('menu.open', {dx: 42});
+eventManager.dispatch('task.started', {dx: 42});
 console.assert(x === 42, '+42');
 
-eventManager.dispatch('tab.open', {dx: -42});
+eventManager.dispatch('subtask.started', {dx: -42});
 console.assert(x === 42, 'unchanged via non-matching event');

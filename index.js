@@ -2,11 +2,16 @@ class EventManager {
     constructor() {
         this.listeners = [];
     }
+    /**
+     * @param {*} type - Event type
+     * @param {function} handler
+     * @returns {object} - A listener object with a `remove()` method that removes the subscription.
+     */
     addListener(type, handler) {
         if (typeof handler !== 'function')
-            return;
+            throw new Error('handler is not a function');
 
-        const id = Math.random().toString(36).slice(2);
+        let id = Math.random().toString(36).slice(2);
         this.listeners.push({type, handler, id});
 
         return {
@@ -18,15 +23,22 @@ class EventManager {
             }
         };
     }
+    /**
+     * @param {*} type - Event type
+     * @param {function} handler
+     */
     removeListener(type, handler) {
         for (let i = this.listeners.length - 1; i >= 0; i--) {
             if (this.listeners[i].type === type && (!handler || this.listeners[i].handler === handler))
                 this.listeners.splice(i, 1);
         }
     }
-    dispatch(type, props) {
-        const event = {...props, type};
-
+    /**
+     * @param {*} type - Event type
+     * @param {object} [payload] - Extra event props
+     */
+    dispatch(type, payload) {
+        let event = {...payload, type};
         for (let listener of this.listeners) {
             if (this.shouldCallListener(listener, event))
                 listener.handler(this.toHandlerPayload(listener, event));
