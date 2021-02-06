@@ -7,36 +7,22 @@
 ```js
 let eventManager = new EventManager();
 
-let listener = eventManager.addListener('something happened', event => {
+eventManager.addListener('task started', event => {
     // a handler for the specific event
 });
-let universalListener = eventManager.addListener('*', event => {
+eventManager.addListener(/^task\s/, event => {
+    // a handler for all events matching the pattern
+});
+eventManager.addListener(/^(\S+)\s(?<status>.*)$/, event => {
+    // a handler for all events matching the pattern with captured parameters
+    console.log(event.params[0], event.params.status);
+});
+let listener = eventManager.addListener('*', event => {
     // a handler for all events dispatched to this eventManager
 });
 
-eventManager.dispatch('something happened', {x: 42});
-
+eventManager.dispatch('task started', {x: 42});
 listener.remove();
-universalListener.remove();
-```
-
-### Custom event type matching
-
-By default, instances of `EventManager` check for equality of the listener type and the incoming event type. Here's an example of how the event type matching can be customized:
-
-```js
-class EventPatternManager extends EventManager {
-    shouldCallListener(listener, event) {
-        return listener.type.test(event.type);
-    }
-}
-```
-
-```js
-let eventManager = new EventPatternManager();
-
-eventManager.addListener(/^task\./, event => console.log(event));
-eventManager.dispatch('task.started');
 ```
 
 ## Installation

@@ -12,26 +12,15 @@ class EventManager {
             throw new Error('handler is not a function');
 
         let id = Math.random().toString(36).slice(2);
-        this.listeners.push({type, handler, id});
-
-        return {
-            remove: () => {
-                for (let i = this.listeners.length - 1; i >= 0; i--) {
-                    if (this.listeners[i].id === id)
-                        this.listeners.splice(i, 1);
-                }
+        let remove = () => {
+            for (let i = this.listeners.length - 1; i >= 0; i--) {
+                if (this.listeners[i].id === id)
+                    this.listeners.splice(i, 1);
             }
         };
-    }
-    /**
-     * @param {*} type - Event type
-     * @param {function} handler
-     */
-    removeListener(type, handler) {
-        for (let i = this.listeners.length - 1; i >= 0; i--) {
-            if (this.listeners[i].type === type && (!handler || this.listeners[i].handler === handler))
-                this.listeners.splice(i, 1);
-        }
+
+        this.listeners.push({id, type, handler});
+        return {id, type, remove};
     }
     /**
      * @param {*} type - Event type
@@ -45,9 +34,17 @@ class EventManager {
         }
     }
     shouldCallListener(listener, event) {
+        if (listener.type instanceof RegExp)
+            return listener.type.test(String(event.type));
         return listener.type === '*' || listener.type === event.type;
     }
     toHandlerPayload(listener, event) {
+        if (listener.type instanceof RegExp) {
+            let matches = String(event.type).match(listener.type);
+            event.params = matches ? {...Array.from(matches).slice(1), ...matches.groups} : {};
+        }
+        else event.params = {};
+
         return event;
     }
 }

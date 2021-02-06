@@ -1,14 +1,15 @@
 import EventManager from './';
 
-let eventManager = new EventManager();
-let x = 0;
+let eventManager = new EventManager(), listener, x;
 
-let listener = eventManager.addListener('update', event => {
+console.log('exact event type');
+x = 0;
+
+listener = eventManager.addListener('update', event => {
     console.assert(event.type === 'update', 'event type should match listener type');
     x += event.dx;
 });
 console.assert(eventManager.listeners.length === 1, 'added listener');
-
 console.assert(x === 0, 'initial state');
 
 eventManager.dispatch('update', {dx: 1});
@@ -27,18 +28,35 @@ eventManager.dispatch('update', {dx: 5});
 console.assert(x === 0, 'no updates, listener is removed');
 
 
-class EventPatternManager extends EventManager {
-    shouldCallListener(listener, event) {
-        return listener.type.test(event.type);
-    }
-}
+console.log('event type pattern');
+x = 0;
 
-eventManager = new EventPatternManager();
-eventManager.addListener(/^task\./, event => {
+listener = eventManager.addListener(/^task\s/, event => {
     x += event.dx;
 });
-eventManager.dispatch('task.started', {dx: 42});
-console.assert(x === 42, '+42');
+console.assert(x === 0, 'initial state');
 
-eventManager.dispatch('subtask.started', {dx: -42});
-console.assert(x === 42, 'unchanged via non-matching event');
+eventManager.dispatch('task started', {dx: 42});
+console.assert(x === 42, 'matching event');
+
+eventManager.dispatch('subtask started', {dx: -42});
+console.assert(x === 42, 'non-matching event');
+
+listener.remove();
+
+
+console.log('event type pattern params');
+x = null;
+
+listener = eventManager.addListener(/^(\S+)\s+(?<status>.+)$/, event => {
+    x = event.params;
+});
+console.assert(x === null, 'initial state');
+
+eventManager.dispatch('task started', {dx: 42});
+console.assert(x[0] === 'task' && x.status === 'started', 'task started');
+
+eventManager.dispatch('subtask completed', {dx: -42});
+console.assert(x[0] === 'subtask' && x.status === 'completed', 'subtask completed');
+
+listener.remove();
