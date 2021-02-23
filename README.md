@@ -14,7 +14,8 @@ eventManager.addListener(/^task\s/, event => {
     // a handler for all events matching the pattern
 });
 eventManager.addListener(/^(\S+)\s(?<status>.*)$/, event => {
-    // a handler for all events matching the pattern with captured parameters
+    // a handler for all events matching the pattern
+    // with captured parameters
     console.log(event.params[0], event.params.status);
 });
 let listener = eventManager.addListener('*', event => {
@@ -23,10 +24,4 @@ let listener = eventManager.addListener('*', event => {
 
 eventManager.dispatch('task started', {x: 42});
 listener.remove();
-```
-
-## Installation
-
-```
-npm i github:axtk/event-manager
 ```

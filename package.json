@@ -1,20 +1,28 @@
 {
   "name": "event-manager",
   "version": "1.0.4",
-  "description": "Customizable event manager",
+  "description": "A lightweight event manager",
   "main": "index.js",
   "scripts": {
     "test": "node -r esm test.js"
   },
   "author": "axtk",
-  "license": "ISC",
+  "license": "MIT",
   "keywords": [
-    "event",
-    "emitter",
+    "events",
+    "event-manager",
+    "event-emitter",
     "dispatcher",
     "mediator"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/axtk/event-manager.git"
+  },
   "devDependencies": {
     "esm": "^3.2.25"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
