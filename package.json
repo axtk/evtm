@@ -1,5 +1,5 @@
 {
-  "name": "event-manager",
+  "name": "@axtk/event-manager",
   "version": "1.0.4",
   "description": "A lightweight event manager",
   "main": "index.js",

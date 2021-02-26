@@ -1,3 +1,7 @@
+[![npm](https://img.shields.io/npm/v/@axtk/event-manager?labelColor=royalblue&color=royalblue&style=flat-square)](https://www.npmjs.com/package/@axtk/event-manager)
+![browser](https://img.shields.io/badge/browser-✓-blue?labelColor=dodgerblue&color=dodgerblue&style=flat-square)
+![node](https://img.shields.io/badge/node-✓-blue?labelColor=dodgerblue&color=dodgerblue&style=flat-square)
+
 # event-manager
 
 *A lightweight event manager*
