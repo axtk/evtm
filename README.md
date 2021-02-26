@@ -8,24 +8,52 @@
 
 ## Usage
 
+Initialization:
+
 ```js
 let eventManager = new EventManager();
+```
 
+Adding a handler of a specific event type:
+
+```js
 eventManager.addListener('task started', event => {
-    // a handler for the specific event
+    console.log(event);
 });
+```
+
+Of all events matching the pattern:
+
+```js
 eventManager.addListener(/^task\s/, event => {
-    // a handler for all events matching the pattern
+    console.log(event);
 });
+```
+
+With captured parameters:
+
+```js
 eventManager.addListener(/^(\S+)\s(?<status>.*)$/, event => {
-    // a handler for all events matching the pattern
-    // with captured parameters
     console.log(event.params[0], event.params.status);
 });
-let listener = eventManager.addListener('*', event => {
-    // a handler for all events dispatched to this eventManager
-});
+```
 
+Adding a handler of all events dispatched to the `eventManager` instance:
+
+```js
+let listener = eventManager.addListener('*', event => {
+    console.log(event);
+});
+```
+
+Dispatching an event of a specific type and properties:
+
+```js
 eventManager.dispatch('task started', {x: 42});
+```
+
+Removing a previously declared listener:
+
+```js
 listener.remove();
 ```
