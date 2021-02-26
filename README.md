@@ -2,15 +2,15 @@
 ![browser](https://img.shields.io/badge/browser-✓-blue?labelColor=dodgerblue&color=dodgerblue&style=flat-square)
 ![node](https://img.shields.io/badge/node-✓-blue?labelColor=dodgerblue&color=dodgerblue&style=flat-square)
 
-# event-manager
-
 *A lightweight event manager*
 
-## Usage
+# Usage
 
 Initialization:
 
 ```js
+import EventManager from '@axtk/event-manager';
+
 let eventManager = new EventManager();
 ```
 
