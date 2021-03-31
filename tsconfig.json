@@ -1,0 +1,9 @@
+{
+    "include": ["index.ts", "test.ts"],
+    "compilerOptions": {
+        "lib": ["esnext", "dom"],
+        "target": "esnext",
+        "outDir": "dist",
+        "moduleResolution": "node"
+    }
+}
