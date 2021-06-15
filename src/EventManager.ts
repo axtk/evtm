@@ -7,7 +7,7 @@ import {DispatchedEvent, Event, Handler, Listener} from './types';
 // P: Payload
 
 export class EventManager<L, D> extends AbstractEventManager<L, D> {
-    listeners: Listener<L, any>[];
+    listeners: Listener<L, any>[] = [];
     addListener<P>(type: L, handler: Handler<D, P>): Listener<L, P> {
         return super.addListener<P>(type, handler);
     }

@@ -4,6 +4,10 @@ import { matchPattern } from './matchPattern';
 // D: DispatchedEventType
 // P: Payload
 export class EventManager extends AbstractEventManager {
+    constructor() {
+        super(...arguments);
+        this.listeners = [];
+    }
     addListener(type, handler) {
         return super.addListener(type, handler);
     }
