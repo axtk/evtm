@@ -2,7 +2,7 @@ import { EventManager } from './';
 let eventManager = new EventManager(), listener, x;
 console.log('exact event type');
 x = 0;
-listener = eventManager.addListener('update', event => {
+listener = eventManager.addListener('update', (event) => {
     console.assert(event.type === 'update', 'event type should match listener type');
     x += event.dx;
 });
@@ -20,7 +20,7 @@ eventManager.dispatch('update', { dx: 5 });
 console.assert(x === 0, 'no updates, listener is removed');
 console.log('event type pattern');
 x = 0;
-listener = eventManager.addListener(/^task\s/, event => {
+listener = eventManager.addListener(/^task\s/, (event) => {
     x += event.dx;
 });
 console.assert(x === 0, 'initial state');

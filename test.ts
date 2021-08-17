@@ -1,11 +1,11 @@
-import {EventManager} from './';
+import {EventManager, Event} from './';
 
-let eventManager = new EventManager<string | RegExp, string>(), listener, x;
+let eventManager = new EventManager(), listener, x;
 
 console.log('exact event type');
 x = 0;
 
-listener = eventManager.addListener<{dx: number}>('update', event => {
+listener = eventManager.addListener('update', (event: Event<{dx: number}>) => {
     console.assert(event.type === 'update', 'event type should match listener type');
     x += event.dx;
 });
@@ -31,7 +31,7 @@ console.assert(x === 0, 'no updates, listener is removed');
 console.log('event type pattern');
 x = 0;
 
-listener = eventManager.addListener<{dx: number}>(/^task\s/, event => {
+listener = eventManager.addListener(/^task\s/, (event: Event<{dx: number}>) => {
     x += event.dx;
 });
 console.assert(x === 0, 'initial state');
@@ -48,7 +48,7 @@ listener.remove();
 console.log('event type pattern params');
 x = null;
 
-listener = eventManager.addListener<{dx: number}>(/^(\S+)\s+(?<status>.+)$/, event => {
+listener = eventManager.addListener(/^(\S+)\s+(?<status>.+)$/, event => {
     x = event.params;
 });
 console.assert(x === null, 'initial state');
