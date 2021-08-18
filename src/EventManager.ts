@@ -1,7 +1,7 @@
 import {matchPattern, MatchParams} from './matchPattern';
 
 export type EventType = string | number | boolean | RegExp | null | undefined;
-export type EventHandler = (event: Event) => void;
+export type EventHandler = (event?: Event) => void;
 
 export type Event<T extends EventPayload = {}> = T & {
     type: EventType;
@@ -14,7 +14,7 @@ export type EventPayload = {
 
 export type EventListener = {
     id: string;
-    type: EventType;
+    type: EventType | EventType[];
     handler: EventHandler;
     remove: () => void;
 };
@@ -24,7 +24,7 @@ export class EventManager {
     constructor() {
         this.listeners = [];
     }
-    addListener(type: EventType, handler: EventHandler): EventListener {
+    addListener(type: EventType | EventType[], handler: EventHandler): EventListener {
         if (typeof handler !== 'function')
             throw new Error('handler is not a function');
 
