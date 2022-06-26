@@ -1,6 +1,6 @@
-[![npm](https://img.shields.io/npm/v/@axtk/event-manager?labelColor=royalblue&color=royalblue&style=flat-square)](https://www.npmjs.com/package/@axtk/event-manager) ![browser](https://img.shields.io/badge/browser-✓-345?labelColor=345&color=345&style=flat-square) ![node](https://img.shields.io/badge/node-✓-345?labelColor=345&color=345&style=flat-square) ![TypeScript](https://img.shields.io/badge/TypeScript-✓-345?labelColor=345&color=345&style=flat-square)
+[![npm](https://img.shields.io/npm/v/evtm?labelColor=royalblue&color=royalblue&style=flat-square)](https://www.npmjs.com/package/evtm) ![browser](https://img.shields.io/badge/browser-✓-345?labelColor=345&color=345&style=flat-square) ![node](https://img.shields.io/badge/node-✓-345?labelColor=345&color=345&style=flat-square) ![TypeScript](https://img.shields.io/badge/TypeScript-✓-345?labelColor=345&color=345&style=flat-square)
 
-# @axtk/event-manager
+# evtm
 
 *A lightweight event manager*
 
@@ -9,7 +9,7 @@
 Initialization:
 
 ```js
-import {EventManager} from '@axtk/event-manager';
+import {EventManager} from 'evtm';
 
 let eventManager = new EventManager();
 ```

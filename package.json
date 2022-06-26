@@ -1,5 +1,5 @@
 {
-  "name": "@axtk/event-manager",
+  "name": "evtm",
   "version": "3.0.0",
   "description": "A lightweight event manager",
   "main": "dist/index.js",
@@ -24,13 +24,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/axtk/event-manager.git"
+    "url": "git://github.com/axtk/evtm.git"
   },
   "devDependencies": {
     "cross-env": "7.0.3",
     "typescript": "4.7.4"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
