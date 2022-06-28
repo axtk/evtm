@@ -8,6 +8,7 @@ export const matchPattern = (pattern: unknown, value: unknown): MatchParams | nu
             let matches = matchPattern(p, value);
             if (matches) return matches;
         }
+        return null;
     }
 
     if (pattern instanceof RegExp) {
