@@ -2,7 +2,7 @@
 
 # evtm
 
-*A lightweight event manager*
+*A lightweight zero-dependency event manager with flexible event type matching*
 
 ## Usage
 
