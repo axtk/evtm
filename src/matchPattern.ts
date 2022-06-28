@@ -1,4 +1,4 @@
-export type MatchParams = Record<string, unknown>;
+export type MatchParams = Record<string, string | undefined>;
 
 const toObject = (x: string[]) => x.reduce((p, v, k) => { p[k] = v; return p; }, {});
 
