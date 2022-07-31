@@ -1,9 +1,9 @@
 import {matchPattern, MatchParams} from './matchPattern';
 
 export type EventType = string | number | boolean | RegExp | null | undefined;
-export type EventHandler = (event?: Event) => void;
+export type EventHandler = (event: Event) => void;
 
-export type Event<T = unknown> = {
+export type Event<T = any> = {
     type: EventType;
     params?: MatchParams | null;
     data: T;

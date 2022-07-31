@@ -1,9 +1,10 @@
 import {EventManager, Event} from './src/EventManager';
+import {MatchParams} from './src/matchPattern';
 
-let eventManager = new EventManager(), listener, x;
+let eventManager = new EventManager(), listener;
+let x = 0;
 
 console.log('exact event type');
-x = 0;
 
 listener = eventManager.addListener('update', (event: Event<{dx: number}>) => {
     console.assert(event.type === 'update', 'event type should match listener type');
@@ -46,17 +47,17 @@ listener.remove();
 
 
 console.log('event type pattern params');
-x = null;
+let p: MatchParams | null | undefined;
 
 listener = eventManager.addListener(/^(\S+)\s+(?<status>.+)$/, event => {
-    x = event.params;
+    p = event.params;
 });
-console.assert(x === null, 'initial state');
+console.assert(p === undefined, 'initial state');
 
 eventManager.dispatch('task started', {dx: 42});
-console.assert(x[0] === 'task' && x.status === 'started', 'task started');
+console.assert(p?.[0] === 'task' && p?.status === 'started', 'task started');
 
 eventManager.dispatch('subtask completed', {dx: -42});
-console.assert(x[0] === 'subtask' && x.status === 'completed', 'subtask completed');
+console.assert(p?.[0] === 'subtask' && p?.status === 'completed', 'subtask completed');
 
 listener.remove();

@@ -4,6 +4,9 @@
         "lib": ["esnext", "dom"],
         "target": "esnext",
         "outDir": "dist",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
     }
 }

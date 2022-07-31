@@ -1,6 +1,7 @@
 export type MatchParams = Record<string, string | undefined>;
 
-const toObject = (x: string[]) => x.reduce((p, v, k) => { p[k] = v; return p; }, {});
+const toObject = (x: string[]) =>
+    x.reduce((p, v, k) => { p[String(k)] = v; return p; }, {} as Record<string, unknown>);
 
 export const matchPattern = (pattern: unknown, value: unknown): MatchParams | null => {
     if (Array.isArray(pattern)) {
