@@ -1,9 +1,9 @@
-import {matchPattern, MatchParams} from './matchPattern';
+import {MatchParams, matchPattern} from './matchPattern';
 
 export type EventType = string | number | boolean | RegExp | null | undefined;
 export type EventHandler = (event: Event) => void;
 
-export type Event<T = any> = {
+export type Event<T = unknown> = {
     type: EventType;
     params?: MatchParams | null;
     data: T;
@@ -28,6 +28,7 @@ export class EventManager {
             throw new Error('handler is not a function');
 
         let id = getRandomString();
+
         let remove = () => {
             for (let i = this.listeners.length - 1; i >= 0; i--) {
                 if (this.listeners[i].id === id)
@@ -36,12 +37,14 @@ export class EventManager {
         };
 
         let listener = {id, type, handler, remove};
+
         this.listeners.push(listener);
 
         return listener;
     }
     dispatch(type: EventType, data?: unknown): void {
         let event: Event = {type, data};
+
         for (let listener of this.listeners) {
             if (this.shouldCallListener(listener, event))
                 listener.handler(this.toHandlerPayload(listener, event));
@@ -52,6 +55,7 @@ export class EventManager {
     }
     toHandlerPayload(listener: EventListener, event: Event): Event {
         let params = matchPattern(listener.type, event.type);
+
         return {...event, params};
     }
 }

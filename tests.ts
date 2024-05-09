@@ -1,4 +1,4 @@
-import {EventManager, Event} from './src/EventManager';
+import {Event, EventManager} from './src/EventManager';
 import {MatchParams} from './src/matchPattern';
 
 let eventManager = new EventManager(), listener;
@@ -28,7 +28,6 @@ console.assert(eventManager.listeners.length === 0, 'removed listener');
 eventManager.dispatch('update', {dx: 5});
 console.assert(x === 0, 'no updates, listener is removed');
 
-
 console.log('event type pattern');
 x = 0;
 
@@ -44,7 +43,6 @@ eventManager.dispatch('subtask started', {dx: -42});
 console.assert(x === 42, 'non-matching event');
 
 listener.remove();
-
 
 console.log('event type pattern params');
 let p: MatchParams | null | undefined;
