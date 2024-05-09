@@ -1,12 +1,14 @@
 export type MatchParams = Record<string, string | undefined>;
 
-const toObject = (x: string[]) => x.reduce<Record<string, unknown>>((p, v, k) => {
-    p[String(k)] = v;
+function toObject(x: string[]) {
+    return x.reduce<Record<string, unknown>>((p, v, k) => {
+        p[String(k)] = v;
 
-    return p;
-}, {});
+        return p;
+    }, {});
+}
 
-export const matchPattern = (pattern: unknown, value: unknown): MatchParams | null => {
+export function matchPattern(pattern: unknown, value: unknown): MatchParams | null {
     if (Array.isArray(pattern)) {
         for (let p of pattern) {
             let matches = matchPattern(p, value);
@@ -31,4 +33,4 @@ export const matchPattern = (pattern: unknown, value: unknown): MatchParams | nu
         return {} as MatchParams;
 
     return null;
-};
+}
