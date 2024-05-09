@@ -3,7 +3,8 @@ import {MatchParams, matchPattern} from './matchPattern';
 export type EventType = string | number | boolean | RegExp | null | undefined;
 export type EventHandler = (event: Event) => void;
 
-export type Event<T = unknown> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Event<T = any> = {
     type: EventType;
     params?: MatchParams | null;
     data: T;
