@@ -21,9 +21,11 @@ const getRandomString = () => Math.random().toString(36).slice(2);
 
 export class EventManager {
     listeners: EventListener[];
+
     constructor() {
         this.listeners = [];
     }
+
     addListener(type: EventType | EventType[], handler: EventHandler): EventListener {
         if (typeof handler !== 'function')
             throw new Error('handler is not a function');
@@ -43,6 +45,7 @@ export class EventManager {
 
         return listener;
     }
+
     dispatch(type: EventType, data?: unknown): void {
         let event: Event = {type, data};
 
@@ -51,9 +54,11 @@ export class EventManager {
                 listener.handler(this.toHandlerPayload(listener, event));
         }
     }
+
     shouldCallListener(listener: EventListener, event: Event): boolean {
         return matchPattern(listener.type, event.type) !== null;
     }
+
     toHandlerPayload(listener: EventListener, event: Event): Event {
         let params = matchPattern(listener.type, event.type);
 
