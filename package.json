@@ -1,6 +1,6 @@
 {
   "name": "evtm",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "description": "Lightweight event manager with flexible event type matching",
   "main": "dist/index.js",
   "scripts": {
