@@ -5,13 +5,13 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "npm-run-all -s cleanup compile",
-    "cleanup": "node -e \"require('fs').rmSync('dist', {force: true, recursive: true});\"",
-    "compile": "npm-run-all -s compile:src compile:tests",
+    "build": "npm-run-all cleanup compile",
+    "cleanup": "node -e \"require('node:fs').rmSync('dist', {force: true, recursive: true});\"",
+    "compile": "npm-run-all compile:src compile:tests",
     "compile:src": "esbuild index.ts --bundle --outfile=dist/index.js --platform=neutral --minify",
     "compile:tests": "esbuild tests.ts --bundle --outfile=dist/tests.js --platform=neutral --minify",
-    "prepublishOnly": "npm-run-all -s build test",
-    "preversion": "npm-run-all -s build test",
+    "prepublishOnly": "npm-run-all build test",
+    "preversion": "npm-run-all build test",
     "test": "node dist/tests.js"
   },
   "author": "axtk",
