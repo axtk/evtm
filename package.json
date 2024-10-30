@@ -3,7 +3,6 @@
   "version": "4.2.2",
   "description": "Lightweight event manager with flexible event type matching",
   "main": "dist/index.js",
-  "type": "module",
   "scripts": {
     "build": "npm-run-all cleanup compile",
     "cleanup": "node -e \"require('node:fs').rmSync('dist', {force: true, recursive: true});\"",
