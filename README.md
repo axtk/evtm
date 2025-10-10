@@ -1,4 +1,9 @@
-[![npm](https://img.shields.io/npm/v/evtm?labelColor=royalblue&color=royalblue&style=flat-square)](https://www.npmjs.com/package/evtm) ![browser](https://img.shields.io/badge/browser-✓-345?labelColor=345&color=345&style=flat-square) ![node](https://img.shields.io/badge/node-✓-345?labelColor=345&color=345&style=flat-square) ![TypeScript](https://img.shields.io/badge/TypeScript-✓-345?labelColor=345&color=345&style=flat-square)
+> [!WARNING]
+> It's [`@t8/event-patterns`](https://github.com/t8js/event-patterns) now.
+
+---
+
+![browser](https://img.shields.io/badge/browser-✓-345?labelColor=345&color=345&style=flat-square) ![node](https://img.shields.io/badge/node-✓-345?labelColor=345&color=345&style=flat-square) ![TypeScript](https://img.shields.io/badge/TypeScript-✓-345?labelColor=345&color=345&style=flat-square)
 
 # evtm
 
