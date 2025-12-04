@@ -1,5 +1,5 @@
 > [!WARNING]
-> It's [`@t8/event-patterns`](https://github.com/t8js/event-patterns) now.
+> It's [`@t8/events`](https://github.com/t8js/events) now.
 
 ---
 
